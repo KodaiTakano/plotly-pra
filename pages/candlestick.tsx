@@ -4,6 +4,9 @@ import { Data } from "plotly.js";
 
 // let figure = make_subplots(rows=1, cols=1)
 
+// x軸の同期
+// スクロールによって縮小拡大
+
 const Plot = dynamic(() => import("react-plotly.js"), {
   ssr: false,
 });
@@ -38,7 +41,6 @@ export default function candle() {
         //     y: [20, 30, 40, 50, 60, 70, 80, 70, 60, 50, 40, 30, 20, 10, 20, 30, 40, 50, 50, 60, 60, 80, 30, 50, 50, 60, 70, 70, 90, 50],
         //     type: "scatter",
         //     mode: "lines",
-
         // }
     ];
     return (
@@ -98,8 +100,10 @@ export default function candle() {
                     // barmode: "stack"  
                 }}
                 config={{
-                    displayModeBar:  false
+                    displayModeBar:  false,
+                    scrollZoom: true
                 }}
+                
             />
         </div>
     )
