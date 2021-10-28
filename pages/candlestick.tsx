@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { Data } from "plotly.js";
+import { useLayoutEffect } from "react";
 // import { make_subplots } from "plotly.subplots"
 
 // let figure = make_subplots(rows=1, cols=1)
@@ -14,7 +15,8 @@ const Plot = dynamic(() => import("react-plotly.js"), {
 export default function candle() {
     var day = ['2017-01-04', '2017-01-05', '2017-01-06', '2017-01-09', '2017-01-10', '2017-01-11', '2017-01-12', '2017-01-13', '2017-01-17', '2017-01-18', '2017-01-19', '2017-01-20', '2017-01-23', '2017-01-24', '2017-01-25', '2017-01-26', '2017-01-27', '2017-01-30', '2017-01-31', '2017-02-01', '2017-02-02', '2017-02-03', '2017-02-06', '2017-02-07', '2017-02-08', '2017-02-09', '2017-02-10', '2017-02-13', '2017-02-14', '2017-02-15']
 
-    var trace:Data[] = [
+    var trace1:Data = 
+    // var trace1 =
         // ローソク
         {
         x: day,
@@ -36,17 +38,24 @@ export default function candle() {
         //     mode: "lines",
         //     yaxis: 'y1'
         // }
-        // ,{
-        //     x: day,
-        //     y: [20, 30, 40, 50, 60, 70, 80, 70, 60, 50, 40, 30, 20, 10, 20, 30, 40, 50, 50, 60, 60, 80, 30, 50, 50, 60, 70, 70, 90, 50],
-        //     type: "scatter",
-        //     mode: "lines",
-        // }
-    ];
+    
+       
+    var trace2:Data =
+    // var trace2 =
+        // RSI
+        {
+        x: day,
+        y: [20, 30, 40, 50, 60, 70, 80, 70, 60, 50, 40, 30, 20, 10, 20, 30, 40, 50, 50, 60, 60, 80, 30, 50, 50, 60, 70, 70, 90, 50],
+        type: "scatter",
+        mode: "lines",
+        yaxis: 'y2',
+        }
+        
+    
     return (
         <div className = "">
             <Plot 
-                data={trace}
+                data = {[trace1,trace2]}
                 layout={{
                     dragmode: 'pan', 
                     margin: {
@@ -87,6 +96,7 @@ export default function candle() {
                     yaxis: {
                         autorange: true, 
                         side: 'left'
+                        
                         // domain: [0, 1], 
                         // range: [114.609999778, 137.410004222], 
                         // type: 'linear'
@@ -97,30 +107,17 @@ export default function candle() {
                     //     overlaying: 'y',
                     //     showgrid: false,
                     // },
-                    // barmode: "stack"  
+                    // barmode: "stack" 
+                    grid: {
+                        rows: 2,
+                        columns: 1                        
+                    } 
                 }}
                 config={{
                     displayModeBar:  false,
                     scrollZoom: true
                 }}
-                
             />
         </div>
     )
 }
-
-
-// from plotly.subplots import make_subplots
-// import plotly.graph_objects as go
-
-// fig = make_subplots(rows=1, cols=2)
-
-// fig.add_trace(
-//     go.Scatter(x=[1, 2, 3], y=[4, 5, 6]),
-//     row=1, col=1
-// )
-
-// fig.add_trace(
-//     go.Scatter(x=[20, 30, 40], y=[50, 60, 70]),
-//     row=1, col=2
-// )
