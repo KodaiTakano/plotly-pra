@@ -1,12 +1,6 @@
 import dynamic from "next/dynamic";
 import { Data } from "plotly.js";
 import { useLayoutEffect } from "react";
-// import { make_subplots } from "plotly.subplots"
-
-// let figure = make_subplots(rows=1, cols=1)
-
-// x軸の同期
-// スクロールによって縮小拡大
 
 const Plot = dynamic(() => import("react-plotly.js"), {
   ssr: false,
@@ -49,18 +43,26 @@ export default function candle() {
         type: "scatter",
         mode: "lines",
         yaxis: 'y2',
+
         }
-        
-    
+
     return (
         <div className = "">
             <Plot 
                 data = {[trace1,trace2]}
                 layout={{
+                    title: {
+                        text: "candlestick",
+                        font:{
+                            size: 30
+                        }
+                    },
+                    width: 800,
+                    height: 600,
                     dragmode: 'pan', 
                     margin: {
                         r: 0,
-                        t: 50,
+                        t: 100,
                         b: 40, 
                         l: 70
                     }, 
@@ -78,15 +80,15 @@ export default function candle() {
                             xanchor: 'left',
                             font: {size:15},
                             buttons: [{
-                                step: 'month',
+                                step: 'day',
                                 stepmode: 'backward',
                                 count: 1,
-                                label: '1 month'
+                                label: '1 day'
                             }, {
                                 step: 'month',
                                 stepmode: 'backward',
-                                count: 6,
-                                label: '6 months'
+                                count: 1,
+                                label: '1 months'
                             }, {
                                 step: 'all',
                                 label: 'All dates'
@@ -95,22 +97,17 @@ export default function candle() {
                     }, 
                     yaxis: {
                         autorange: true, 
-                        side: 'left'
-                        
-                        // domain: [0, 1], 
+                        side: 'left',
+                        domain: [0.4, 1], 
                         // range: [114.609999778, 137.410004222], 
                         // type: 'linear'
                     },
-                    // yaxis2: {
-                    //     autorange: true,
-                    //     side: 'right',
-                    //     overlaying: 'y',
-                    //     showgrid: false,
-                    // },
-                    // barmode: "stack" 
+                    yaxis2: {
+                        domain: [0, 0.3]
+                    },
                     grid: {
                         rows: 2,
-                        columns: 1                        
+                        columns: 1,     
                     } 
                 }}
                 config={{
